@@ -1,9 +1,8 @@
 using gcc : 4.8 ;
 # using clang ;
 using testing ;
-using doxygen ;
 
-project Chess
+project octopus-c
 	:
 		requirements
 		<variant>release
@@ -11,25 +10,13 @@ project Chess
 		<threading>multi
 		<include>source
 		<cxxflags>-std=c++1y
+		<cxxflags>-mssse3
 		<cxxflags>-Ofast
 		<linkflags>-Ofast
 		
-#		<cxxflags>-stdlib=libc++
-#		<linkflags>-stdlib=libc++
-#		<cxxflags>-Wno-c++1y-extensions
-#		<cxxflags>-Wno-invalid-constexpr
-#		<cxxflags>-Wno-c++11-narrowing
-
-#		<cxxflags>-mpopcnt
-#		<cxxflags>-mavx2
-		<cxxflags>-mssse3
-#		<linkflags>-mssse3
-#		<cxxflags>-flto
-#		<linkflags>-flto
 	;
 
 lib boost_unit_test_framework ;
-lib PocoUtil ;
 lib tbb ;
 
 unit-test Test
@@ -45,7 +32,6 @@ exe Engine
 		[ glob source/*.cpp ]
 		[ glob source/*/*.cpp ]
 		engine/engine.cpp
-#		PocoUtil
 		tbb
 	;
 
@@ -54,19 +40,5 @@ exe UCI
 		[ glob source/*.cpp ]
 		[ glob source/*/*.cpp ]
 		engine/universal_chess_interface.cpp
-#		PocoUtil
 		tbb
 	;
-
-#doxygen chess.html
-#    :
-#        [ glob source/*.hpp ]
-#    :
-#        <doxygen:param>"PROJECT_NAME=\"Chess\""
-#        <doxygen:param>"PROJECT_NUMBER=4.0"
-#        <doxygen:param>"PROJECT_BRIEF=\"Implements chess engine\""
-##        <doxygen:param>"EXAMPLE_PATH=examples"
-#        <doxygen:param>"JAVADOC_AUTOBRIEF=YES"
-#        <doxygen:param>"BUILTIN_STL_SUPPORT=YES"
-#        <doxygen:param>"TAB_SIZE=4"
-#    ;
